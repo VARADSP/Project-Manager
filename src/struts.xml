@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+   
+    <package name="com" extends="struts-default">
+         
+        <action name="welcome" class="com.varad.actions.WelcomeAction">
+			<result name="welcome">index.jsp</result>
+		</action>
+		
+		
+        <action name="login" class="com.varad.actions.LoginAction">
+				<interceptor-ref name="defaultStack"/> 	       		
+				<interceptor-ref name="execAndWait"/>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+			<result name="wait">loader.jsp</result>
+			<result name="employee" type="chain">showEmployee</result>
+			<result name="manager" type="chain">showManager</result>
+			<result name="admin" type="chain">showAdmin</result>
+		</action>
+		
+		<action name="signup" class="com.varad.actions.RegisterAction">
+			<result name="success">index.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="showEmployee" class="com.varad.actions.EmployeeAction">
+			<result name="success">employee.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+	
+		<action name="showManager" class="com.varad.actions.ManagerAction">
+			<result name="success">manager.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+	
+		
+	    <action name="showAdmin" class="com.varad.actions.AdminAction">
+			<result name="success">admin.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+	
+		<action name="logout" class="com.varad.actions.LogoutAction">
+			<result name="success">index.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="enable" class="com.varad.actions.EnableDisableUserAction" method="enable">
+			<result name="success" type="chain">showUsers</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="delete" class="com.varad.actions.DeleteUserAction">
+			<result name="success" type="chain">showUsers</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="disable" class="com.varad.actions.EnableDisableUserAction" method="disable">
+			<result name="success" type="chain">showUsers</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		
+		
+		<action name="showUsers" class="com.varad.actions.ShowUsersAction">
+			<result name="success">users.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		
+	
+		<action name="register">
+			<result>register.jsp</result>
+		</action>
+		
+		
+		<action name="signin">
+			<result>index.jsp</result>
+		</action>
+		
+		<action name="project" class="com.varad.actions.AddProjectAction" method="getManagersList">
+			<result name="success">addproject.jsp</result>
+			<result name="input" type="chain">showAdmin</result>
+			<result name="error" type="chain">showAdmin</result>
+		</action>
+		
+		<action name="getProject" class="com.varad.actions.ChangeProjectAction" method="getProject">
+			<result name="success">changeproject.jsp</result>
+			<result name="input" type="chain">showAdmin</result>
+			<result name="error" type="chain">showAdmin</result>
+		</action>
+		
+		<action name="getUser" class="com.varad.actions.ChangeUserAction" method="getUser">
+			<result name="success">changeuser.jsp</result>
+			<result name="input" type="chain">showAdmin</result>
+			<result name="error" type="chain">showAdmin</result>
+		</action>
+		
+		<action name="changeUser" class="com.varad.actions.ChangeUserAction" method="changeUser">
+			<result name="success" type="chain">showUsers</result>
+			<result name="input" type="chain">showAdmin</result>
+			<result name="error" type="chain">showAdmin</result>
+		</action>
+		
+		<action name="changeProject" class="com.varad.actions.ChangeProjectAction" method="changeProject">
+			<result name="success" type="chain">showAdmin</result>
+			<result name="input">changeproject.jsp</result>
+			<result name="error">changeproject.jsp</result>
+		</action>
+		
+		<action name="addProject" class="com.varad.actions.AddProjectAction">
+			<result name="success" type="chain">showAdmin</result>
+			<result name="input">addproject.jsp</result>
+			<result name="error">addproject.jsp</result>
+		</action>
+		
+		<action name="deleteProject" class="com.varad.actions.AdminAction" method="deleteProject">
+			<result name="success" type="chain">showAdmin</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+	
+		<action name="showMyProject" class="com.varad.actions.ShowProjectAction" method="getMyProject">
+			<result name="success">showmyproject.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="showEmployees" class="com.varad.actions.ShowEmployeeAction">
+			<result name="success">showemployees.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="allocateEmployee" class="com.varad.actions.EmployeeAllocateAction" method="allocateEmployee">
+			<result name="success" type="chain">showManager</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="deallocateEmployee" class="com.varad.actions.EmployeeAllocateAction" method="deallocateEmployee">
+			<result name="success" type="chain">showManager</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		
+    </package>
+</struts>
