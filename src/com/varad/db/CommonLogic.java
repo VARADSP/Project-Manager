@@ -42,7 +42,7 @@ public class CommonLogic {
 			resultSet.beforeFirst();
 
 		} catch (Exception ex) {
-
+			System.out.println(ex);
 		}
 		return size;
 	}
