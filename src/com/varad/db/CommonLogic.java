@@ -638,7 +638,7 @@ public class CommonLogic {
 				preparedStatement2.setString(1, id);
 				// executing the query for prapared statment
 				ResultSet resultSet1 = preparedStatement2.executeQuery();
-				System.out.println(resultSet1.getString(1));
+				
 
 				if (getRowCount(resultSet1) == 0) {
 					System.out.println("2");
