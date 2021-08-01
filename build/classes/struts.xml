@@ -140,8 +140,34 @@
 			<result name="error">error.jsp</result>
 		</action>
 		
+		
+		<action name="showMyProjectEmployee" class="com.varad.actions.ShowProjectEmployeeAction" method="getMyProject">
+			<result name="success">showmyprojectemployee.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="deallocateMe" class="com.varad.actions.ShowProjectEmployeeAction" method="deallocateMe">
+			<result name="success" type="chain">showEmployee</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		
 		<action name="showEmployees" class="com.varad.actions.ShowEmployeeAction">
 			<result name="success">showemployees.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="showApplications" class="com.varad.actions.ShowApplicationsAction">
+			<result name="success">showapplications.jsp</result>
+			<result name="input">index.jsp</result>
+			<result name="error">error.jsp</result>
+		</action>
+		
+		<action name="deleteApplication" class="com.varad.actions.ShowApplicationsAction" method="deleteApplication">
+			<result name="success" type="chain">showApplications</result>
 			<result name="input">index.jsp</result>
 			<result name="error">error.jsp</result>
 		</action>

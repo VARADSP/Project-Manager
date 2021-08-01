@@ -98,7 +98,7 @@ $(document).ready(function() {
 			<div class="container-fluid">
 				<a class="navbar-brand" href="#">Project Management</a>
 				<form class="d-flex">
-					<a class="btn btn-info mx-3" href="showMyProject?username=<%= session.getAttribute("username") %>">My Project</a>
+					<a class="btn btn-info mx-3" href="showMyProjectEmployee?username=<%= session.getAttribute("username") %>">My Project</a>
 					<a class="btn btn-danger" href="logout" >Logout</a>
 				</form>
 			</div>
@@ -110,6 +110,16 @@ $(document).ready(function() {
 		<div class="container mx-auto my-5">
 			<div class="row">
 				<p>Welcome Employee <%=session.getAttribute("username")%></p>
+		</div>
+		<div class="row">
+		<s:if test="hasActionMessages()">
+					<h5 class="mx-auto my-5 w-50" style="color: gold">
+						<s:iterator value="actionMessages">
+							<s:property />
+							<br />
+						</s:iterator>
+					</h5>
+		</s:if>
 		</div>
 		<div class="row">
 				<h4>Available Projects</h4>
@@ -145,7 +155,7 @@ $(document).ready(function() {
 								<td>
 										<button type="button" name="<s:property value="projectid" />"
 											id="applyBtn" onclick="applyProject(this)"
-											class="btn btn-warning">Apply</button>
+											class="btn btn-warning" <s:if test= 'session.get("isAllocated") == true'>disabled</s:if>>Apply</button>
 									</td>
 							
 							</tr>

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.varad.beans.ManagerBean;
 import com.varad.beans.ProjectBean;
+import com.varad.beans.ShowApplicationBean;
 import com.varad.beans.ShowEmployeeBean;
 import com.varad.beans.ShowProjectBean;
 import com.varad.beans.UserListBean;
@@ -185,6 +186,50 @@ public class CommonLogic {
 		}
 
 	}
+	
+	public static ArrayList<ShowApplicationBean> getApplicationsList(String managerusername) {
+		connection = DbLogic.connect();
+		// Query fire for insertion operation with column name and values
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		ArrayList<ShowApplicationBean> applications = new ArrayList<ShowApplicationBean>();
+		try {
+
+			// admin and normal user query detects if admin returns all rows
+			preparedStatement = connection.prepareStatement("SELECT * from project_application WHERE managerid=(SELECT userid FROM project_users WHERE username=?)");
+			preparedStatement.setString(1, managerusername);
+			// preparedStatement.setString(2, password.trim());
+			// executing the query for prapared statment
+			resultSet = preparedStatement.executeQuery();
+
+			if (getRowCount(resultSet) == 0) {
+				return null;
+			}
+			while(resultSet.next()) {
+				ShowApplicationBean applicationBean = new ShowApplicationBean();
+				applicationBean.setId(resultSet.getString(1));
+				applicationBean.setUserid(resultSet.getString(2));
+				applicationBean.setProjectid(resultSet.getString(3));
+				applicationBean.setManagerid(resultSet.getString(4));
+				applicationBean.setIsapproved(resultSet.getString(5));
+				applicationBean.setRequest(resultSet.getString(6));
+				applicationBean.setRequesttype(resultSet.getString(7));
+				applications.add(applicationBean);
+			}
+
+			// disconnecting the database
+			 DbLogic.disconnect();
+			 connection.close();
+
+			return applications;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
 	
 	public static UserListBean getUser(String userid) {
 		connection = DbLogic.connect();
@@ -1040,6 +1085,52 @@ public class CommonLogic {
 	}
 	
 	
+	public static Integer deleteApplication(String applicationid) {
+
+		int i1 = 0;
+
+		// connecting to database
+		connection = DbLogic.connect();
+
+		// Query fire for insertion operation with column name and values
+		PreparedStatement preparedStatement1;
+
+			System.out.println("Deleting application id no " + applicationid);
+			try {
+				preparedStatement1 = connection.prepareStatement("DELETE FROM project_application WHERE id = ?");
+
+				preparedStatement1.setString(1, applicationid);
+				// executing the query for prapared statment
+				i1 = +preparedStatement1.executeUpdate();
+				// executing the query for prapared statment
+
+				// successfully deleted user
+
+			} catch (Exception e) {
+
+				return 0;
+			}
+
+		
+
+		// disconnecting the database
+		DbLogic.disconnect();
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		if (i1 > 0) {
+			System.out.println("Application deleted successfully !");
+			return 1;
+		} else {
+			System.out.println("Application delete operation unsuccessfull !");
+			return 0;
+		}
+	}
+	
 	public static Integer deleteProject(String projectid) {
 
 		int i1 = 0;
@@ -1091,6 +1182,87 @@ public class CommonLogic {
 			System.out.println("Project delete operation unsuccessfull !");
 			return 0;
 		}
+	}
+	
+	
+	public static Integer deallocateMe(String username,String managerid) {
+
+		int i1 = 0;
+
+		// connecting to database
+		connection = DbLogic.connect();
+
+		// Query fire for insertion operation with column name and values
+		PreparedStatement preparedStatement1;
+
+			System.out.println("request of deallocation for user " + username);
+			try {
+				preparedStatement1 = connection.prepareStatement("INSERT INTO project_application(userid,projectid,managerid,isapproved,request,requesttype) VALUES((SELECT userid FROM project_users WHERE username=?),(SELECT projectid FROM project_projectrelations WHERE userid=(SELECT userid FROM project_users WHERE username=?)),?,'false','deallocation request','deallocate')");
+
+				preparedStatement1.setString(1, username);
+				preparedStatement1.setString(2, username);
+				preparedStatement1.setString(3, managerid);
+				
+				// executing the query for prapared statment
+				i1 = +preparedStatement1.executeUpdate();
+				// executing the query for prapared statment
+
+				// successfully deleted user
+
+			} catch (Exception e) {
+
+				return 0;
+			}
+
+		
+
+		// disconnecting the database
+		DbLogic.disconnect();
+		try {
+			connection.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
+
+		if (i1 > 0) {
+			System.out.println("Requested for deallocation successfully !");
+			return 1;
+		} else {
+			System.out.println("Deallocation request operation unsuccessfull !");
+			return 0;
+		}
+	}
+	
+	public static boolean checkIfAllocated(String username) {
+		// connecting to database
+		connection = DbLogic.connect();
+		// Query fire for insertion operation with column name and values
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		boolean isAllocated = true;
+		try {
+
+			// admin and normal user query detects if admin returns all rows
+			preparedStatement = connection.prepareStatement("SELECT * FROM project_projectrelations where userid=(SELECT userid FROM project_users WHERE username=?)");
+
+			preparedStatement.setString(1, username.trim());
+			// preparedStatement.setString(2, password.trim());
+			// executing the query for prapared statment
+			resultSet = preparedStatement.executeQuery();
+
+			if (getRowCount(resultSet) == 0) {
+				isAllocated = false;
+			}
+
+			// disconnecting the database
+			DbLogic.disconnect();
+			connection.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return isAllocated;
 	}
 	
 }

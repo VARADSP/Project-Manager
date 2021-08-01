@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.varad.beans.ShowApplicationBean;
 import com.varad.beans.ShowEmployeeBean;
 import com.varad.beans.UserListBean;
 import com.varad.db.CommonLogic;
@@ -27,6 +28,15 @@ public class UserUtils {
 
 	public static boolean deleteUser(String userid) {
 		Integer isSuccessful = CommonLogic.deleteUser(userid);
+		if(isSuccessful > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public static boolean deleteApplication(String applicationid) {
+		Integer isSuccessful = CommonLogic.deleteApplication(applicationid);
 		if(isSuccessful > 0) {
 			return true;
 		}
@@ -78,6 +88,12 @@ public class UserUtils {
 		return employees;
 	}
 	
+	public static ArrayList<ShowApplicationBean> getApplicationsList(String managerusername){
+		ArrayList<ShowApplicationBean> applications = new ArrayList<ShowApplicationBean>();
+		applications = CommonLogic.getApplicationsList(managerusername);
+		return applications;
+	}
+	
 	public static boolean allocateEmployee(String userid,String managerusername) {
 		Integer isSuccessful = CommonLogic.allocateEmployee(userid,managerusername);
 		if(isSuccessful > 0) {
@@ -97,4 +113,12 @@ public class UserUtils {
 			return false;
 		}
 	}
+	
+	public static boolean isAllocated(String username) {
+		boolean isAllocated = false;
+		isAllocated = CommonLogic.checkIfAllocated(username);
+		return isAllocated;
+	}
+	
+	
 }

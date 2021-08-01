@@ -71,4 +71,16 @@ public class ProjectUtils {
 		return project;
 	}
 	
+	public static boolean deallocateMe(String username,String managerid){
+		Integer isSuccess;
+		isSuccess = CommonLogic.deallocateMe(username,managerid);
+		if(isSuccess>0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	
 }
