@@ -7,6 +7,11 @@
   <name>ProjectManager</name>
   <description>Struts2 App for company project management utilities</description>
    <dependencies>
+   <dependency>
+  	<groupId>org.postgresql</groupId>
+  	<artifactId>postgresql</artifactId>
+  	<version>42.2.1</version>
+	</dependency>
    	<dependency>
     	<groupId>log4j</groupId>
     	<artifactId>log4j</artifactId>
