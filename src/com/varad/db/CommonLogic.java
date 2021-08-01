@@ -633,7 +633,7 @@ public class CommonLogic {
 				String id = resultSet.getString(1).trim();
 				System.out.println("id "+id);
 
-				preparedStatement2 = connection.prepareStatement("SELECT isDisabled from northwind_varad.project_userlist where userid = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+				preparedStatement2 = connection.prepareStatement("SELECT isDisabled from northwind_varad.project_userlist where userid = ?::INTEGER",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 
 				preparedStatement2.setString(1, id);
 				// executing the query for prapared statment
