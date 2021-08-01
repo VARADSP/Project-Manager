@@ -631,12 +631,14 @@ public class CommonLogic {
 			if (resultSet.next() && resultSet.getString(2).trim().equals(password.trim())) {
 
 				String id = resultSet.getString(1).trim();
+				System.out.println("id "+id);
 
 				preparedStatement2 = connection.prepareStatement("SELECT isDisabled from northwind_varad.project_userlist where userid = ?",ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
 
 				preparedStatement2.setString(1, id);
 				// executing the query for prapared statment
 				ResultSet resultSet1 = preparedStatement2.executeQuery();
+				System.out.println(resultSet1.getString(1));
 
 				if (getRowCount(resultSet1) == 0) {
 					System.out.println("2");
