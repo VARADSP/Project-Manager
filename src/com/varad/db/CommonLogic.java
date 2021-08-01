@@ -56,7 +56,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.userid,u.username,u.password,ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled FROM project_userlist as ul INNER JOIN project_users as u ON ul.userid = u.userid");
+			preparedStatement = connection.prepareStatement("SELECT ul.userid,u.username,u.password,ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled FROM northwind_varad.project_userlist as ul INNER JOIN northwind_varad.project_users as u ON ul.userid = u.userid");
 
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -103,7 +103,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.userid,(SELECT username FROM project_users WHERE userid=ul.userid),ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled,EXISTS(SELECT * FROM project_projectrelations where userid=ul.userid) as isallocated,(SELECT projectname FROM project_projects WHERE projectid=(SELECT projectid FROM project_projectrelations WHERE userid=ul.userid)) as project FROM project_userlist as ul WHERE ul.category='employee'");
+			preparedStatement = connection.prepareStatement("SELECT ul.userid,(SELECT username FROM northwind_varad.project_users WHERE userid=ul.userid),ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled,EXISTS(SELECT * FROM northwind_varad.project_projectrelations where userid=ul.userid) as isallocated,(SELECT projectname FROM northwind_varad.project_projects WHERE projectid=(SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=ul.userid)) as project FROM northwind_varad.project_userlist as ul WHERE ul.category='employee'");
 
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -150,7 +150,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.userid,(SELECT username FROM project_users WHERE userid=ul.userid),ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled,EXISTS(SELECT * FROM project_projectrelations where userid=ul.userid) as isallocated,(SELECT projectname FROM project_projects WHERE projectid=(SELECT projectid FROM project_projectrelations WHERE userid=ul.userid)) as project FROM project_userlist as ul WHERE (SELECT projectname FROM project_projects WHERE projectid=(SELECT projectid FROM project_projectrelations WHERE userid=ul.userid))=(SELECT projectname FROM project_projects WHERE managerid=(SELECT userid FROM project_users WHERE username=?))");
+			preparedStatement = connection.prepareStatement("SELECT ul.userid,(SELECT username FROM northwind_varad.project_users WHERE userid=ul.userid),ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled,EXISTS(SELECT * FROM northwind_varad.project_projectrelations where userid=ul.userid) as isallocated,(SELECT projectname FROM northwind_varad.project_projects WHERE projectid=(SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=ul.userid)) as project FROM northwind_varad.project_userlist as ul WHERE (SELECT projectname FROM northwind_varad.project_projects WHERE projectid=(SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=ul.userid))=(SELECT projectname FROM northwind_varad.project_projects WHERE managerid=(SELECT userid FROM northwind_varad.project_users WHERE username=?))");
 			preparedStatement.setString(1, managerusername);
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -196,7 +196,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT * from project_application WHERE managerid=(SELECT userid FROM project_users WHERE username=?)");
+			preparedStatement = connection.prepareStatement("SELECT * from northwind_varad.project_application WHERE managerid=(SELECT userid FROM northwind_varad.project_users WHERE username=?)");
 			preparedStatement.setString(1, managerusername);
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -240,7 +240,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT * FROM project_application WHERE managerid=(SELECT userid FROM project_users WHERE username=?)");
+			preparedStatement = connection.prepareStatement("SELECT * FROM northwind_varad.project_application WHERE managerid=(SELECT userid FROM northwind_varad.project_users WHERE username=?)");
 			preparedStatement.setString(1, managerusername);
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -270,7 +270,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.userid,u.username,u.password,ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled FROM project_userlist as ul INNER JOIN project_users as u ON ul.userid = u.userid WHERE ul.userid=?");
+			preparedStatement = connection.prepareStatement("SELECT ul.userid,u.username,u.password,ul.name,ul.category,ul.sex,ul.address,ul.emailid,ul.isdisabled FROM northwind_varad.project_userlist as ul INNER JOIN northwind_varad.project_users as u ON ul.userid = u.userid WHERE ul.userid=?");
 			preparedStatement.setString(1, userid.trim());
 			
 			// preparedStatement.setString(2, password.trim());
@@ -314,7 +314,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.userid,ul.name FROM project_userlist as ul WHERE ul.category='manager' AND ul.userid NOT IN (SELECT userid FROM project_projectrelations)");
+			preparedStatement = connection.prepareStatement("SELECT ul.userid,ul.name FROM northwind_varad.project_userlist as ul WHERE ul.category='manager' AND ul.userid NOT IN (SELECT userid FROM northwind_varad.project_projectrelations)");
 
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -353,7 +353,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM project_projectrelations WHERE projectid=p.projectid) FROM project_projects as p");
+			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM northwind_varad.project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM northwind_varad.project_projectrelations WHERE projectid=p.projectid) FROM northwind_varad.project_projects as p");
 
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -397,7 +397,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM project_projectrelations WHERE projectid=p.projectid) FROM project_projects as p WHERE p.projectid NOT IN (SELECT projectid FROM project_projectrelations WHERE userid=(SELECT userid FROM project_users WHERE username=?))");
+			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM northwind_varad.project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM northwind_varad.project_projectrelations WHERE projectid=p.projectid) FROM northwind_varad.project_projects as p WHERE p.projectid NOT IN (SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=(SELECT userid FROM northwind_varad.project_users WHERE username=?))");
 			preparedStatement.setString(1, username);
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -441,7 +441,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM project_projectrelations WHERE projectid=p.projectid) FROM project_projects as p WHERE p.projectid = ?");
+			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM northwind_varad.project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM northwind_varad.project_projectrelations WHERE projectid=p.projectid) FROM northwind_varad.project_projects as p WHERE p.projectid = ?");
 			preparedStatement.setString(1, projectid.trim());
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -485,8 +485,8 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM project_projectrelations WHERE projectid=p.projectid) FROM project_projects as p WHERE p.projectid = (SELECT projectid FROM project_projectrelations WHERE userid=(SELECT userid FROM project_users WHERE username=?))");
-			preparedStatement1 = connection.prepareStatement("SELECT u.name FROM project_userlist as u WHERE u.userid IN (SELECT p.userid FROM project_projectrelations as p WHERE p.projectid = (SELECT projectid FROM project_projectrelations WHERE userid=(SELECT userid FROM project_users WHERE username=?)))");
+			preparedStatement = connection.prepareStatement("SELECT p.projectid,p.projectname,p.projectlocation,p.managerid,(SELECT name FROM northwind_varad.project_userlist where userid=p.managerid),(SELECT COUNT(*) FROM northwind_varad.project_projectrelations WHERE projectid=p.projectid) FROM northwind_varad.project_projects as p WHERE p.projectid = (SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=(SELECT userid FROM northwind_varad.project_users WHERE username=?))");
+			preparedStatement1 = connection.prepareStatement("SELECT u.name FROM northwind_varad.project_userlist as u WHERE u.userid IN (SELECT p.userid FROM northwind_varad.project_projectrelations as p WHERE p.projectid = (SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=(SELECT userid FROM northwind_varad.project_users WHERE username=?)))");
 			
 			// preparedStatement.setString(2, password.trim());
 			// executing the query for prapared statment
@@ -538,7 +538,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.UserId,(SELECT username FROM project_users WHERE userid = ul.UserId),ul.Name,ul.Category,ul.Sex,ul.Address,ul.EmailId,ul.isDisabled FROM project_userlist AS ul INNER JOIN project_users AS u ON u.username = ? WHERE ul.UserId = u.userid OR 1 = EXISTS(SELECT Category FROM project_userlist AS ul1 WHERE ul1.Category = 'Admin' AND ul1.UserId = u.userid)");
+			preparedStatement = connection.prepareStatement("SELECT ul.UserId,(SELECT username FROM northwind_varad.project_users WHERE userid = ul.UserId),ul.Name,ul.Category,ul.Sex,ul.Address,ul.EmailId,ul.isDisabled FROM northwind_varad.project_userlist AS ul INNER JOIN northwind_varad.project_users AS u ON u.username = ? WHERE ul.UserId = u.userid OR 1 = EXISTS(SELECT Category FROM northwind_varad.project_userlist AS ul1 WHERE ul1.Category = 'Admin' AND ul1.UserId = u.userid)");
 
 			preparedStatement.setString(1, name.trim());
 			// preparedStatement.setString(2, password.trim());
@@ -575,7 +575,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.category FROM project_userlist as ul WHERE ul.userid = (SELECT u.userid FROM project_users as u WHERE u.username=?)");
+			preparedStatement = connection.prepareStatement("SELECT ul.category FROM northwind_varad.project_userlist as ul WHERE ul.userid = (SELECT u.userid FROM northwind_varad.project_users as u WHERE u.username=?)");
 
 			preparedStatement.setString(1, username.trim());
 			// preparedStatement.setString(2, password.trim());
@@ -611,7 +611,7 @@ public class CommonLogic {
 			// Query fire for insertion operation with column name and values
 			PreparedStatement preparedStatement1, preparedStatement2;
 
-			preparedStatement1 = connection.prepareStatement("SELECT userid,password from project_users where username = ?");
+			preparedStatement1 = connection.prepareStatement("SELECT userid,password from northwind_varad.project_users where username = ?");
 
 			preparedStatement1.setString(1, userName.trim());
 			// preparedStatement.setString(2, password.trim());
@@ -627,7 +627,7 @@ public class CommonLogic {
 
 				String id = resultSet.getString(1).trim();
 
-				preparedStatement2 = connection.prepareStatement("SELECT isDisabled from project_userlist where userid = ?");
+				preparedStatement2 = connection.prepareStatement("SELECT isDisabled from northwind_varad.project_userlist where userid = ?");
 
 				preparedStatement2.setString(1, id);
 				// executing the query for prapared statment
@@ -684,8 +684,8 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1, preparedStatement2;
 		try {
-			preparedStatement1 = connection.prepareStatement("INSERT INTO project_projects(projectname,projectlocation,teamsize,managerid) VALUES(?,?,?,?)");
-			preparedStatement2 = connection.prepareStatement("INSERT INTO project_projectrelations(userid,projectid) VALUES(?,(SELECT projectid FROM project_projects WHERE projectname = ?))");
+			preparedStatement1 = connection.prepareStatement("INSERT INTO northwind_varad.project_projects(projectname,projectlocation,teamsize,managerid) VALUES(?,?,?,?)");
+			preparedStatement2 = connection.prepareStatement("INSERT INTO northwind_varad.project_projectrelations(userid,projectid) VALUES(?,(SELECT projectid FROM northwind_varad.project_projects WHERE projectname = ?))");
 
 			preparedStatement1.setString(1, projectBean.getProjectname());
 			preparedStatement1.setString(2, projectBean.getProjectlocation());
@@ -729,9 +729,9 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1, preparedStatement2;
 		try {
-			preparedStatement2 = connection.prepareStatement("UPDATE project_projectrelations SET userid=? WHERE userid=(SELECT p.managerid FROM project_projects as p WHERE p.projectid=?) AND projectid=?");
+			preparedStatement2 = connection.prepareStatement("UPDATE northwind_varad.project_projectrelations SET userid=? WHERE userid=(SELECT p.managerid FROM northwind_varad.project_projects as p WHERE p.projectid=?) AND projectid=?");
 
-			preparedStatement1 = connection.prepareStatement("UPDATE project_projects SET projectname=?,projectlocation=?,managerid=? WHERE projectid=?");
+			preparedStatement1 = connection.prepareStatement("UPDATE northwind_varad.project_projects SET projectname=?,projectlocation=?,managerid=? WHERE projectid=?");
 			
 			preparedStatement1.setString(1, projectBean.getProjectname());
 			preparedStatement1.setString(2, projectBean.getProjectlocation());
@@ -778,8 +778,8 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1, preparedStatement2;
 		try {
-			preparedStatement1 = connection.prepareStatement("INSERT INTO project_users(username, PASSWORD) VALUES(?, ?)");
-			preparedStatement2 = connection.prepareStatement("INSERT INTO project_userlist(userid,name,category,sex,address,emailid) VALUES((SELECT userid FROM project_users WHERE username = ?),?,?,?,?,?)");
+			preparedStatement1 = connection.prepareStatement("INSERT INTO northwind_varad.project_users(username, PASSWORD) VALUES(?, ?)");
+			preparedStatement2 = connection.prepareStatement("INSERT INTO northwind_varad.project_userlist(userid,name,category,sex,address,emailid) VALUES((SELECT userid FROM northwind_varad.project_users WHERE username = ?),?,?,?,?,?)");
 
 			preparedStatement1.setString(1, userDataBean.getUsername());
 			preparedStatement1.setString(2, userDataBean.getPassword());
@@ -825,9 +825,9 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1, preparedStatement2;
 		try {
-			preparedStatement1 = connection.prepareStatement("UPDATE project_users SET username=?,password=? WHERE userid=?");
+			preparedStatement1 = connection.prepareStatement("UPDATE northwind_varad.project_users SET username=?,password=? WHERE userid=?");
 
-			preparedStatement2 = connection.prepareStatement("UPDATE project_userlist SET name=?,category=?,sex=?,address=?,emailid=?,isdisabled=? WHERE userid=?");
+			preparedStatement2 = connection.prepareStatement("UPDATE northwind_varad.project_userlist SET name=?,category=?,sex=?,address=?,emailid=?,isdisabled=? WHERE userid=?");
 			
 			preparedStatement1.setString(1, userListBean.getUsername());
 			preparedStatement1.setString(2, userListBean.getPassword());
@@ -879,7 +879,7 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1;
 		try {
-			preparedStatement1 = connection.prepareStatement("UPDATE project_userlist SET isdisabled=? WHERE userid=?");
+			preparedStatement1 = connection.prepareStatement("UPDATE northwind_varad.project_userlist SET isdisabled=? WHERE userid=?");
 
 			preparedStatement1.setString(1, "false");
 
@@ -916,7 +916,7 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1;
 		try {
-			preparedStatement1 = connection.prepareStatement("UPDATE project_userlist SET isdisabled=? WHERE userid=?");
+			preparedStatement1 = connection.prepareStatement("UPDATE northwind_varad.project_userlist SET isdisabled=? WHERE userid=?");
 
 			preparedStatement1.setString(1, "true");
 
@@ -954,7 +954,7 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1;
 		try {
-			preparedStatement1 = connection.prepareStatement("INSERT INTO project_projectrelations(userid,projectid) values(?,(SELECT projectid FROM project_projects WHERE managerid = (SELECT userid FROM project_users WHERE username=?)))");
+			preparedStatement1 = connection.prepareStatement("INSERT INTO northwind_varad.project_projectrelations(userid,projectid) values(?,(SELECT projectid FROM northwind_varad.project_projects WHERE managerid = (SELECT userid FROM northwind_varad.project_users WHERE username=?)))");
 
 			preparedStatement1.setString(1, userid);
 
@@ -991,7 +991,7 @@ public class CommonLogic {
 		// Query fire for insertion operation with column name and values
 		PreparedStatement preparedStatement1;
 		try {
-			preparedStatement1 = connection.prepareStatement("DELETE FROM project_projectrelations WHERE userid=?");
+			preparedStatement1 = connection.prepareStatement("DELETE FROM northwind_varad.project_projectrelations WHERE userid=?");
 
 			preparedStatement1.setString(1, userid);
 
@@ -1033,7 +1033,7 @@ public class CommonLogic {
 		for (String id : ids) {
 			System.out.println("Deleting user no " + id);
 			try {
-				preparedStatement1 = connection.prepareStatement("DELETE FROM project_userlist WHERE userid = ?");
+				preparedStatement1 = connection.prepareStatement("DELETE FROM northwind_varad.project_userlist WHERE userid = ?");
 
 				preparedStatement1.setString(1, id);
 				// executing the query for prapared statment
@@ -1079,7 +1079,7 @@ public class CommonLogic {
 
 			System.out.println("Deleting user no " + id);
 			try {
-				preparedStatement1 = connection.prepareStatement("DELETE FROM project_users WHERE userid = ?");
+				preparedStatement1 = connection.prepareStatement("DELETE FROM northwind_varad.project_users WHERE userid = ?");
 
 				preparedStatement1.setString(1, id);
 				// executing the query for prapared statment
@@ -1126,7 +1126,7 @@ public class CommonLogic {
 
 			System.out.println("Deleting application id no " + applicationid);
 			try {
-				preparedStatement1 = connection.prepareStatement("DELETE FROM project_application WHERE id = ?");
+				preparedStatement1 = connection.prepareStatement("DELETE FROM northwind_varad.project_application WHERE id = ?");
 
 				preparedStatement1.setString(1, applicationid);
 				// executing the query for prapared statment
@@ -1172,7 +1172,7 @@ public class CommonLogic {
 
 			System.out.println("Deleting project no " + projectid);
 			try {
-				preparedStatement1 = connection.prepareStatement("DELETE FROM project_projects WHERE projectid = ?");
+				preparedStatement1 = connection.prepareStatement("DELETE FROM northwind_varad.project_projects WHERE projectid = ?");
 
 				preparedStatement1.setString(1, projectid);
 				// executing the query for prapared statment
@@ -1181,7 +1181,7 @@ public class CommonLogic {
 
 				// successfully deleted user
 				
-				preparedStatement1 = connection.prepareStatement("DELETE FROM project_projectrelations WHERE projectid = ?");
+				preparedStatement1 = connection.prepareStatement("DELETE FROM northwind_varad.project_projectrelations WHERE projectid = ?");
 
 				preparedStatement1.setString(1, projectid);
 				// executing the query for prapared statment
@@ -1226,7 +1226,7 @@ public class CommonLogic {
 
 			System.out.println("request of deallocation for user " + username);
 			try {
-				preparedStatement1 = connection.prepareStatement("INSERT INTO project_application(userid,projectid,managerid,isapproved,request,requesttype) VALUES((SELECT userid FROM project_users WHERE username=?),(SELECT projectid FROM project_projectrelations WHERE userid=(SELECT userid FROM project_users WHERE username=?)),?,'false','deallocation request','deallocate')");
+				preparedStatement1 = connection.prepareStatement("INSERT INTO northwind_varad.project_application(userid,projectid,managerid,isapproved,request,requesttype) VALUES((SELECT userid FROM northwind_varad.project_users WHERE username=?),(SELECT projectid FROM northwind_varad.project_projectrelations WHERE userid=(SELECT userid FROM northwind_varad.project_users WHERE username=?)),?,'false','deallocation request','deallocate')");
 
 				preparedStatement1.setString(1, username);
 				preparedStatement1.setString(2, username);
@@ -1273,7 +1273,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT * FROM project_projectrelations where userid=(SELECT userid FROM project_users WHERE username=?)");
+			preparedStatement = connection.prepareStatement("SELECT * FROM northwind_varad.project_projectrelations where userid=(SELECT userid FROM northwind_varad.project_users WHERE username=?)");
 
 			preparedStatement.setString(1, username.trim());
 			// preparedStatement.setString(2, password.trim());
