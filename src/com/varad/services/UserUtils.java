@@ -94,6 +94,12 @@ public class UserUtils {
 		return applications;
 	}
 	
+	public static Integer getApplicationsCount(String managerusername){
+		Integer count = 0;
+		count = CommonLogic.getApplicationsCount(managerusername);
+		return count;
+	}
+	
 	public static boolean allocateEmployee(String userid,String managerusername) {
 		Integer isSuccessful = CommonLogic.allocateEmployee(userid,managerusername);
 		if(isSuccessful > 0) {

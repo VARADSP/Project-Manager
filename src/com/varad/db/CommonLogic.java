@@ -231,6 +231,35 @@ public class CommonLogic {
 	}
 	
 	
+	public static Integer getApplicationsCount(String managerusername) {
+		connection = DbLogic.connect();
+		// Query fire for insertion operation with column name and values
+		PreparedStatement preparedStatement;
+		ResultSet resultSet;
+		Integer count = 0;
+		try {
+
+			// admin and normal user query detects if admin returns all rows
+			preparedStatement = connection.prepareStatement("SELECT * FROM project_application WHERE managerid=(SELECT userid FROM project_users WHERE username=?)");
+			preparedStatement.setString(1, managerusername);
+			// preparedStatement.setString(2, password.trim());
+			// executing the query for prapared statment
+			resultSet = preparedStatement.executeQuery();
+			
+			count = getRowCount(resultSet);
+			// disconnecting the database
+			 DbLogic.disconnect();
+			 connection.close();
+
+			return count;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+	}
+	
 	public static UserListBean getUser(String userid) {
 		connection = DbLogic.connect();
 		// Query fire for insertion operation with column name and values

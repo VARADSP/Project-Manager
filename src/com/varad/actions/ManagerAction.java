@@ -19,8 +19,21 @@ public class ManagerAction extends ActionSupport implements ModelDriven<ShowEmpl
 	private HttpServletRequest request = null;
 	private ArrayList<ShowEmployeeBean> projectemployeeslist = new ArrayList<ShowEmployeeBean>();
 	private ShowEmployeeBean showEmployeeBean = new ShowEmployeeBean();
+	private Integer applicationCount = 0;
+
 	
 	
+	
+	public Integer getApplicationCount() {
+		return applicationCount;
+	}
+
+
+	public void setApplicationCount(Integer applicationCount) {
+		this.applicationCount = applicationCount;
+	}
+
+
 	public ArrayList<ShowEmployeeBean> getProjectemployeeslist() {
 		return projectemployeeslist;
 	}
@@ -33,6 +46,8 @@ public class ManagerAction extends ActionSupport implements ModelDriven<ShowEmpl
 
 	public String execute() {
 		projectemployeeslist = UserUtils.getEmployeesOfProject(session.get("username").toString());
+		applicationCount = UserUtils.getApplicationsCount(session.get("username").toString());
+		session.put("applicationCount", applicationCount);
 		return "success";
 	}
 	

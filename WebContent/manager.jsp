@@ -66,7 +66,7 @@
 				<form class="d-flex">
 					<a class="btn btn-info mx-3" href="showMyProject?username=<%= session.getAttribute("username") %>">My Project</a>
 					<a class="btn btn-outline-warning mx-3" href="showEmployees">Show Employees</a>
-					<a class="btn btn-success mx-3" href="showApplications">Show Applications</a>
+					<a class="btn btn-success mx-3" href="showApplications">Show Applications<span class="translate-middle badge rounded-pill bg-danger"><%=session.getAttribute("applicationCount")%></span></a>
 					<a class="btn btn-danger" href="logout" >Logout</a>
 				</form>
 			</div>
