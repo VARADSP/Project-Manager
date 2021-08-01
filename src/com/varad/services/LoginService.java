@@ -8,6 +8,8 @@ public class LoginService {
 	
 	public static String login(LoginBean loginBean) {
 		String loginStatus = CommonLogic.login(loginBean.getUsername(), loginBean.getPassword());
+		System.out.println("login status");
+		System.out.println(loginStatus);
 		if(loginStatus.equals("authenticated")) {
 			return "valid";
 		}
