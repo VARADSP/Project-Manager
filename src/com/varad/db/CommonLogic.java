@@ -538,7 +538,7 @@ public class CommonLogic {
 		try {
 
 			// admin and normal user query detects if admin returns all rows
-			preparedStatement = connection.prepareStatement("SELECT ul.UserId,(SELECT username FROM northwind_varad.project_users WHERE userid = ul.UserId),ul.Name,ul.Category,ul.Sex,ul.Address,ul.EmailId,ul.isDisabled FROM northwind_varad.project_userlist AS ul INNER JOIN northwind_varad.project_users AS u ON u.username = ? WHERE ul.UserId = u.userid OR 1 = EXISTS(SELECT Category FROM northwind_varad.project_userlist AS ul1 WHERE ul1.Category = 'Admin' AND ul1.UserId = u.userid)");
+			preparedStatement = connection.prepareStatement("SELECT ul.UserId,(SELECT username FROM northwind_varad.project_users WHERE userid = ul.UserId),ul.Name,ul.Category,ul.Sex,ul.Address,ul.EmailId,ul.isDisabled FROM northwind_varad.project_userlist AS ul INNER JOIN northwind_varad.project_users AS u ON u.username = ? WHERE ul.UserId = u.userid OR true = EXISTS(SELECT Category FROM northwind_varad.project_userlist AS ul1 WHERE ul1.Category = 'Admin' AND ul1.UserId = u.userid)");
 
 			preparedStatement.setString(1, name.trim());
 			// preparedStatement.setString(2, password.trim());
