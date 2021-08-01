@@ -6,6 +6,19 @@
   <packaging>war</packaging>
   <name>ProjectManager</name>
   <description>Struts2 App for company project management utilities</description>
+   <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.struts</groupId>
+            <artifactId>struts2-core</artifactId>
+            <version>2.3.1.2</version>
+        </dependency>
+    </dependencies>
   <build>
     <sourceDirectory>src</sourceDirectory>
     <resources>
