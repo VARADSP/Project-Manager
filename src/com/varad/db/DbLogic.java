@@ -34,7 +34,8 @@ public class DbLogic {
 			//finding the class
 			Class.forName(Constants.db_driver);
 			//establishmenting the connection
-			connection = DriverManager.getConnection(Constants.db_URL,Constants.db_username,Constants.db_password);
+			String urlDB = System.getenv("JDBC_DATABASE_URL");
+			connection = DriverManager.getConnection(urlDB);
 			System.out.println("Database Connecting.....");
 
 		}catch(Exception e){
