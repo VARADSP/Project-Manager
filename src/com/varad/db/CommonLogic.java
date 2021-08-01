@@ -604,6 +604,10 @@ public class CommonLogic {
 	 * method login is used to login return type : String
 	 */
 	public static String login(String userName, String password) {
+		System.out.println("username " + userName);
+		System.out.println("password " + password);
+		
+		
 		// connecting to database
 		try {
 			connection = DbLogic.connect();
@@ -620,6 +624,7 @@ public class CommonLogic {
 
 			if (getRowCount(resultSet) == 0) {
 				// wrong username and password
+				System.out.println("1");
 				return "notAuthenticated";
 			}
 			// successfully authenticated user
@@ -634,6 +639,8 @@ public class CommonLogic {
 				ResultSet resultSet1 = preparedStatement2.executeQuery();
 
 				if (getRowCount(resultSet1) == 0) {
+					System.out.println("2");
+		
 					// wrong username and password
 					// disconnecting the database
 					DbLogic.disconnect();
