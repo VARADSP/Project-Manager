@@ -7,6 +7,11 @@
   <name>ProjectManager</name>
   <description>Struts2 App for company project management utilities</description>
    <dependencies>
+   	<dependency>
+    	<groupId>log4j</groupId>
+    	<artifactId>log4j</artifactId>
+    	<version>1.2.17</version>
+	</dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
