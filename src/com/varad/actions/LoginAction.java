@@ -26,7 +26,7 @@ public class LoginAction extends ActionSupport implements ModelDriven<LoginBean>
 	public void validate() {
 		if(session.get("username")==null) {
 		if(loginBean.getUsername() == null) {
-			addActionError("Username is empty !");
+			addActionError("Username is empty!");
 		}
 		if(loginBean.getPassword() == null) {
 			addActionError("Password is empty !");
